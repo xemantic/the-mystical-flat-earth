@@ -577,17 +577,14 @@ this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,th
       return result
     }
 
-    function appendAsGothic(selector, newElementType) {
-      const element = document.querySelector(selector);
-      const newElement = document.createElement(newElementType);
-      newElement.innerText = toGothic(element.innerText);
-      manuscript.appendChild(newElement);
-    }
-
     window.addEventListener('DOMContentLoaded', (event) => {
-      const manuscript = document.createElement("section");
-      manuscript.id = "manuscript";
-      document.body.appendChild(manuscript);
+      const manuscript = document.getElementById("manuscript");
+      function appendAsGothic(selector, newElementType) {
+        const element = document.querySelector(selector);
+        const newElement = document.createElement(newElementType);
+        newElement.innerText = toGothic(element.innerText);
+        manuscript.appendChild(newElement);
+      }
       appendAsGothic("h1", "h1");
       appendAsGothic("header > p", "p");
       appendAsGothic("#image", "p");
@@ -635,8 +632,10 @@ this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,th
   <header>
     <h1>The Mystical Flat Earth</h1>
     <p>
-      Here is the formula which sustains our planet as a flat disk floating in space
+      Here is the formula which sustains our planet as a flat disk floating in space:
     </p>
   </header>
+  <section id="manuscript"></section>
+  <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/508920700?autoplay=1&loop=1&color=ffffff&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
