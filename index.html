@@ -1,0 +1,642 @@
+<!--
+  ~ Copyright 2021  Kazimierz Pogoda
+  ~
+  ~ This file is part of the-mystical-flat-earth.
+  ~
+  ~ the-mystical-flat-earth is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ the-mystical-flat-earth is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with the-mystical-flat-earth.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Mystical Flat Earth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script>
+// -- https://xemantic.github.io/shader-web-background/
+const shaderWebBackground={};(()=>{'use strict';const r=(a,b)=>{b.initHalfFloatRGBATexture(b.width,b.height);a.texParameteri(a.TEXTURE_2D,
+a.TEXTURE_MIN_FILTER,a.LINEAR);a.texParameteri(a.TEXTURE_2D,a.TEXTURE_MAG_FILTER,
+a.LINEAR);a.texParameteri(a.TEXTURE_2D,a.TEXTURE_WRAP_S,a.CLAMP_TO_EDGE);a.texParameteri(a.TEXTURE_2D,
+a.TEXTURE_WRAP_T,a.CLAMP_TO_EDGE)},x=(a,b)=>{console.warn("shader-web-background cannot shade, adding fallback CSS classes");
+document.documentElement.classList.add("shader-web-background-fallback");b.classList.add("shader-web-background-fallback");
+if(a instanceof shaderWebBackground.GlError)console.warn("Not sufficient WebGL support:",
+a);else throw a;};
+function y(a,b){if(!a)throw new shaderWebBackground.ConfigError(b);}
+function z(a){y(a instanceof HTMLCanvasElement,"config.canvas must be instance of canvas");
+return a}
+function A(){const a=document.createElement("canvas"),b=a.style;a.id="shader-web-background";b.width=
+"100vw";b.height="100vh";b.position="fixed";b.top="0";b.left="0";b.zIndex=-9999;return a}
+const B=a=>'<script type="x-shader/x-fragment" id="'+a+'">';
+function D(a){const b=document.getElementById(a);y(b,"Missing shader source: "+B(a));
+y(b instanceof HTMLScriptElement&&"x-shader/x-fragment"===b.type,'Shader source element of id "'+
+a+'" should be of type: '+B(a));return b.text}
+function E(a,b){"loading"!==document.readyState?b():window.addEventListener(a,b)}
+class F{constructor(a,b,c,d){this.g=c;const k=a.gl;this.h=()=>{for(const f of d)f.u(k,
+f.location,b)};this.i=()=>{var f=c.v,h=a.gl;h.bindBuffer(h.ARRAY_BUFFER,a.j);h.enableVertexAttribArray(f);
+h.vertexAttribPointer(f,2,h.FLOAT,!1,0,0);h.drawArrays(h.TRIANGLE_STRIP,0,4);h.disableVertexAttribArray(f);
+h.bindBuffer(h.ARRAY_BUFFER,null);f=a.gl;for(h=0;h<a.g;h++)f.activeTexture(f.TEXTURE0+
+h),f.bindTexture(f.TEXTURE_2D,null);a.g=0}}}
+function G(a){var b={antialias:!1,depth:!1,alpha:!1};try{return new H(a,b)}catch(c){throw new shaderWebBackground.GlError(c.message);
+}}
+function I(a,b,c,d,k,f){function h(e,m){try{{var n=q;const p=n.gl,v=J(n,e,p.VERTEX_SHADER,"attribute vec2 V;void main(){gl_Position=vec4(V,0,1);}"),
+O=J(n,e,p.FRAGMENT_SHADER,m),u=p.createProgram();p.attachShader(u,v);p.attachShader(u,
+O);p.linkProgram(u);var l=u}return l}catch(p){throw new shaderWebBackground.ConfigError(p.message);
+}}const q=G(a),w=[],g={gl:q.gl,canvas:a,width:0,height:0,cssPixelRatio:0,cssWidth:0,
+cssHeight:0,isOverShader:(e,m)=>{const n=a.getBoundingClientRect();return e>=n.left&&
+e<=n.right&&m>=n.top&&m<=n.bottom},toShaderX:e=>(e-a.getBoundingClientRect().left)*
+g.cssPixelRatio+.5,toShaderY:e=>a.height-(e-a.getBoundingClientRect().top)*g.cssPixelRatio-
+.5,s:()=>g.cssWidth!==a.clientWidth||g.cssHeight!==a.clientHeight?(g.resize(),!0):
+!1,resize:()=>{const e=window.devicePixelRatio||1,m=a.clientWidth,n=a.clientHeight,
+l=Math.floor(m*e),p=Math.floor(n*e);a.width=l;a.height=p;g.width=l;g.height=p;g.cssPixelRatio=
+e;g.cssWidth=m;g.cssHeight=n;q.gl.viewport(0,0,q.canvas.width,q.canvas.height);for(const v of w)v.g.l(l,
+p)},texture:(e,m)=>{{var n=q;const l=n.gl;m=m instanceof K?m.g:m;l.activeTexture(l.TEXTURE0+
+n.g);l.bindTexture(l.TEXTURE_2D,m);l.uniform1i(e,n.g++)}},buffers:{},initHalfFloatRGBATexture:(e,
+m)=>{q.h.g(e,m)}},P=Object.keys(b).length-1;let Q=0;for(const e in b){if(Q++<P){const l=
+b[e].texture||r;g.buffers[e]=L(q,()=>{l(q.gl,g)})}const m=M(q,h(e,D(e)),g.buffers[e]),
+n=b[e].uniforms||{};var t=Object.keys(n);for(const l of m.m)y(n[l.name],'No configuration for uniform "'+
+l.name+'" defined in shader "'+e+'"'),t=t.filter(p=>p!==l.name);0!==t.length&&console.warn('Extra uniforms configured for shader "'+
+e+'", which are not present in the shader code - might have been removed by GLSL compiler if not used: '+
+t.join(", "));t=m.m.map(l=>({location:l.location,u:n[l.name]}));w.push(new F(q,g,
+m,t))}const C=()=>{g.s()&&d&&d(g.width,g.height,g);k&&k(g);for(const e of w)e.g.i(e.h,
+e.i);f&&f(g);requestAnimationFrame(C)};E("load",()=>{g.resize();c&&c(g);d&&d(g.width,
+g.height,g);requestAnimationFrame(C)});return g}
+shaderWebBackground.Error=class extends Error{constructor(a){super(a);this.name="shaderWebBackground.Error"}};
+shaderWebBackground.ConfigError=class extends shaderWebBackground.Error{constructor(a){super(a);
+this.name="shaderWebBackground.ConfigError"}};
+shaderWebBackground.GlError=class extends shaderWebBackground.Error{constructor(a){super(a);this.name=
+"shaderWebBackground.GlError"}};
+shaderWebBackground.shade=function(a){y(a,"Missing config argument");const b=a.canvas?
+z(a.canvas):A();y(a.shaders,"No shaders specified in config");try{const c=I(b,a.shaders,
+a.onInit,a.onResize,a.onBeforeFrame,a.onAfterFrame);a.canvas||E("DOMContentLoaded",
+()=>{document.body.appendChild(b)});return c}catch(c){(a.onError||x)(c,b)}};const N=[-1,1,1,1,-1,-1,1,-1];
+function R(a,b){return a.j(a.gl.getExtension(b),b+" extension is not supported")}
+class S{constructor(a,b){this.gl=a;this.j=b}g(){}}
+class T extends S{constructor(a,b){super(a,b);this.h=R(this,"OES_texture_half_float");
+R(this,"OES_texture_half_float_linear")}g(a,b){const c=this.gl;c.texImage2D(c.TEXTURE_2D,
+0,c.RGBA,a,b,0,c.RGBA,this.h.HALF_FLOAT_OES,null)}}
+class U extends S{constructor(a,b){super(a,b);R(this,"EXT_color_buffer_float");this.gl.getExtension("OES_texture_float_linear")}g(a,
+b){const c=this.gl;c.texImage2D(c.TEXTURE_2D,0,c.RGBA16F,a,b,0,c.RGBA,c.HALF_FLOAT,
+null)}}
+function V(a){a=a.split(/\r?\n/);const b=a.length.toString().length;var c=[];a.forEach((d,
+k)=>{k=(k+1).toString();k=k.length>=b?k:" ".repeat(b-k.length)+k;c.push(k+": "+d+
+"\n")});return c.join("")}function L(a,b){return new K(a.gl,()=>{b(a.gl)})}
+function M(a,b,c){const d=a.gl;a=[];const k=d.getProgramParameter(b,d.ACTIVE_UNIFORMS);
+for(let f=0;f<k;f++){const h=d.getActiveUniform(b,f);a.push({name:h.name,location:d.getUniformLocation(b,
+h.name)})}return{v:d.getAttribLocation(b,"V"),m:a,l:c?(f,h)=>c.l(f,h):()=>{},i:(f,
+h)=>{d.useProgram(b);f();c?(f=c.g,c.g=c.h,c.h=f,c.i(h)):h()}}}
+function J(a,b,c,d){a=a.gl;c=a.createShader(c);a.shaderSource(c,d);a.compileShader(c);
+if(!a.getShaderParameter(c,a.COMPILE_STATUS)){const k=String(a.getShaderInfoLog(c));
+a.deleteShader(c);b="Cannot compile shader - "+b+": "+k;console.log(b);console.log(V(d));
+throw Error(b);}return c}
+class H{constructor(a,b){this.canvas=a;const c=(k,f)=>{if(!k)throw Error(f);return k};
+let d=a.getContext("webgl2",b);if(d)this.h=new U(d,c);else if(d=a.getContext("webgl",
+b))this.h=new T(d,c);c(d,"webgl context not supported on supplied canvas element: "+
+a);this.gl=d;a=d.createBuffer();d.bindBuffer(d.ARRAY_BUFFER,a);d.bufferData(d.ARRAY_BUFFER,
+new Float32Array(N),d.STATIC_DRAW);d.bindBuffer(d.ARRAY_BUFFER,null);this.j=a;this.buffers=
+{};this.g=0}}
+function W(a){const b=a.gl,c=b.createTexture();b.bindTexture(b.TEXTURE_2D,c);a.o(b);
+b.bindTexture(b.TEXTURE_2D,null);return c}
+class K{constructor(a,b){this.j=a.createFramebuffer();this.gl=a;this.o=b;this.g=this.h=
+null}l(){this.h&&this.gl.deleteTexture(this.h);this.g&&this.gl.deleteTexture(this.g);
+this.h=W(this);this.g=W(this)}i(a){const b=this.gl;b.bindFramebuffer(b.FRAMEBUFFER,
+this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,this.g,
+0);a();b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,null,
+0);b.bindFramebuffer(b.FRAMEBUFFER,null)}};})()
+//# sourceMappingURL=../dist/shader-web-background.min.js.map
+  </script>
+  <script>
+    // spectral_zucconi6 by Alan Zucconi rewritten from GLSL to JS by Kazik Pogoda
+    // GLSL: https://www.shadertoy.com/view/ls2Bz1
+
+    const ONE_IN_3D = [1, 1, 1];
+    const c1 = [3.54585104, 2.93225262, 2.41593945];
+    const x1 = [0.69549072, 0.49228336, 0.27699880];
+    const y1 = [0.02312639, 0.15225084, 0.52607955];
+    const c2 = [3.90307140, 3.21182957, 3.96587128];
+    const x2 = [0.11748627, 0.86755042, 0.66077860];
+    const y2 = [0.84897130, 0.88445281, 0.73949448];
+    const saturate = (x) => Math.min(Math.max(x, 0), 1);
+    const to3d = (x) => [x, x, x];
+    const add3d = (x, y) => [x[0] + y[0], x[1] + y[1], x[2] + y[2]];
+    const subtract3d = (x, y) => [x[0] - y[0], x[1] - y[1], x[2] - y[2]];
+    const multiply3d = (x, y) => [x[0] * y[0], x[1] * y[1], x[2] * y[2]];
+    const pow23d = (x) => multiply3d(x, x);
+    const saturate3d = (x) => [saturate(x[0]), saturate(x[1]), saturate(x[2])];
+    const bump3y = (x, yoffset) => saturate3d(subtract3d(subtract3d(ONE_IN_3D, pow23d(x)), yoffset));
+    const spectral_zucconi6 = (x) => add3d(bump3y(multiply3d(c1, subtract3d(to3d(x), x1)), y1), bump3y(multiply3d(c2, subtract3d(to3d(x), x2)), y2));
+  </script>
+  <script type="x-shader/x-fragment" id="feedback">
+    precision highp float;
+
+    uniform vec2      iResolution;
+    uniform float     iMinDimension;
+    uniform sampler2D iChannel0;
+    uniform vec2      iScreenRatioHalf;
+    uniform vec2      iFeedbackZoomCenter;
+    uniform float     iFeedbackZoomRate;
+    uniform vec2      iFeedbackShiftVector;
+    uniform float     iFeedbackFadeRate;
+    uniform float     iFeedbackColorShiftZoom;
+    uniform float     iFeedbackColorShiftImpact;
+    uniform vec2      iDrawCenter;
+    uniform float     iDrawIntensity;
+    uniform float     iBlobRadius;
+    uniform float     iBlobSmoothingRadius;
+    uniform float     iBlobPowFactor;
+    uniform vec3      iBlobColor;
+    uniform float     iTime;
+
+    /*
+      Normally it would be provided by texture parameters, but on iOS the texture REPEAT works only
+      for textures which size is the power of 2.
+     */
+    vec4 repeatedTexture(in sampler2D channel, in vec2 uv) {
+      return texture2D(channel, mod(uv, 1.));
+    }
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / iResolution;
+      vec2 st = (gl_FragCoord.xy * 2. - iResolution) / iMinDimension;
+
+      float drawDist = length(st - iDrawCenter);
+
+      vec3 colorShift = repeatedTexture(
+        iChannel0,
+        uv - st * iFeedbackColorShiftZoom * iScreenRatioHalf
+      ).rgb;
+
+      vec2 stShift = vec2(0);
+      stShift += iFeedbackZoomRate * (st - iFeedbackZoomCenter);
+      stShift += (colorShift.rg - .4) * iFeedbackColorShiftImpact * vec2(sin(iTime * .3), cos(iTime * .3));
+      stShift += iFeedbackShiftVector;
+      stShift *= iScreenRatioHalf;
+
+      vec3 prevColor = repeatedTexture(iChannel0, uv - stShift).rgb;
+      prevColor *= iFeedbackFadeRate;
+
+      vec3 drawColor = vec3(0);
+      float blobShape =
+        pow(drawDist / iBlobRadius, iBlobPowFactor)
+        * smoothstep(iBlobRadius, iBlobSmoothingRadius, drawDist);
+
+      drawColor += blobShape * iBlobColor;
+
+      vec3 color = vec3(0);
+      drawColor *= iDrawIntensity;
+      color += prevColor;
+      color += drawColor;
+
+      color = clamp(color, 0., 1.);
+      gl_FragColor = vec4(color, 1.);
+    }
+  </script>
+  <script type="x-shader/x-fragment" id="image">
+    precision highp float;
+
+    uniform vec2  iResolution;
+    uniform float iMinDimension;
+    uniform float iTime;
+    uniform vec2  iDrawCenter;
+    uniform float iRotationSpeed;
+    uniform float iEarthRadius;
+    uniform float iEarthSmoothingRadius;
+    uniform sampler2D iBlueMarble;
+    uniform sampler2D iChannel0;
+
+    const float PI = 3.14159265359;
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / iResolution;
+      vec2 st = (2. * gl_FragCoord.xy - iResolution) / iMinDimension;
+      float angle = atan(st.x, st.y);
+      float distance = length(st - iDrawCenter);
+      vec2 earthUv = vec2(
+        mod(
+          ((angle + PI) / PI / 2.)
+            + (iTime * iRotationSpeed),
+          1.
+        ),
+        distance
+      );
+      vec4 earthColor =
+        texture2D(iBlueMarble, earthUv / vec2(1., iEarthRadius))
+        * smoothstep(iEarthRadius, iEarthRadius - .2, distance)
+        + texture2D(iChannel0, uv)
+      ;
+      gl_FragColor = earthColor ;
+    }
+  </script>
+  <script>
+    const loadImage = (src) => new Promise((resolve, reject) => {
+      let img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => {
+        reject(new Error("Failed to load image from: " + src));
+      };
+      img.src = src;
+    });
+
+
+
+    var time;
+
+    var minDimension;
+    var screenRatioHalfX;
+    var screenRatioHalfY;
+
+    var mouseX;
+    var mouseY;
+
+    var stMouseX;
+    var stMouseY;
+
+    var tiltLR = 0;
+    var tiltFB = 0;
+    var tiltFBDelta = null;
+
+    var feedbackShiftVectorX;
+    var feedbackShiftVectorY;
+
+    var oldScrollY;
+
+    var drawCenterX;
+    var drawCenterY;
+
+    const GOLDEN_RATIO = .61803398875;
+    const feedbackMouseShiftFactor = .001;
+    const feedbackTiltShiftFactor = .000063;
+    const backgroundParallaxScrollingFactor = .5;
+    const blobColorPulseSpeed = .07;
+    const drawCenterShiftDownScale = .99;
+
+    const blobRadius = GOLDEN_RATIO;
+    const earthRadius = GOLDEN_RATIO;
+    const blobEdgeSmoothing = .01;
+    const earthEdgeSmoothing = .01;
+    const blobSmoothingRadius = blobRadius - blobEdgeSmoothing;
+    const earthSmoothingRadius = earthRadius - earthEdgeSmoothing;
+
+    var blobColor;
+
+    const loadScript = (src) => new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.type = "text/javascript";
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    const onWindowLoad = () => new Promise((resolve) => {
+      window.addEventListener("load", resolve);
+    });
+
+    function newButton(label, action) {
+      const button = document.createElement("button");
+      button.textContent = label;
+      button.addEventListener("click", action);
+      return button;
+    }
+
+    function addControl(control) {
+      document
+        .getElementById("controls")
+        .appendChild(control);
+    }
+
+    function handleDeviceOrientationChange(event) {
+      if (event.beta) {
+        if (tiltFBDelta) {
+          tiltFB = event.beta - tiltFBDelta;
+        } else {  // first reading or calibration
+          tiltFBDelta = event.beta;
+          tiltFB = 0;
+        }
+      }
+      if (event.gamma) {
+        tiltLR = event.gamma;
+      }
+    }
+
+    const deviceOrientationEvent = "deviceorientation";
+
+    function trackDeviceOrientation() {
+      window.addEventListener(deviceOrientationEvent, handleDeviceOrientationChange, false);
+    }
+
+    function untrackDeviceOrientation() {
+      window.removeEventListener(deviceOrientationEvent, handleDeviceOrientationChange, false);
+    }
+
+    function calibrateDeviceOrientation() {
+      tiltFBDelta = null;
+    }
+
+    function initDeviceOrientation() {
+      if (DeviceOrientationEvent.requestPermission) {
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response == "granted") {
+              tiltFBDelta = null;
+              untrackDeviceOrientation(); // just in case it is subsequent attempt
+              trackDeviceOrientation();
+            }
+          })
+          .catch(console.error);
+      } else {
+        trackDeviceOrientation();
+        tiltFBDelta = null;
+      }
+    }
+
+    function maybeAddCalibrateDeviceOrientationAction() {
+      if (window.DeviceOrientationEvent) {
+       addControl(
+          newButton(
+            "Calibrate Device Orientation",
+            () => initDeviceOrientation()
+          )
+        );
+      }
+    }
+
+    function maybeAddActions() {
+      maybeAddCalibrateDeviceOrientationAction();
+    }
+
+    if (window.DeviceOrientationEvent) {
+      if (!DeviceOrientationEvent.requestPermission) {
+        trackDeviceOrientation();
+      }
+    }
+
+    document.addEventListener("mousemove", (event) => {
+       mouseX = event.clientX;
+       mouseY = event.clientY;
+    });
+
+    onWindowLoad()
+      .then(() => Promise.all([
+        loadScript("https://unpkg.com/screenfull/dist/screenfull.js"),
+        loadScript("https://unpkg.com/nosleep.js/dist/NoSleep.min.js")
+      ]))
+      .then(maybeAddActions);
+
+    shaderWebBackground.shade({
+      onInit: (ctx) => {
+        loadImage("../media/nasa-blue-marble.jpg")
+          .then(image => {
+            const gl = ctx.gl;
+            const texture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+            //gl.generateMipmap(gl.TEXTURE_2D);
+            gl.bindTexture(gl.TEXTURE_2D, null);
+            ctx.iBlueMarble = texture;
+          });
+        mouseX = ctx.cssWidth / 2.;
+        mouseY = ctx.cssHeight / 2.;
+        oldScrollY = window.scrollY;
+        drawCenterX = 0;
+        drawCenterY = 0;
+      },
+      onResize: (width, height) => {
+        minDimension = Math.min(width, height);
+        if (width >= height) {
+          screenRatioHalfX = height / width * .5;
+          screenRatioHalfY = .5;
+        } else {
+          screenRatioHalfX = .5;
+          screenRatioHalfY = width / height * .5;
+        }
+      },
+      onBeforeFrame: (ctx) => {
+        stMouseX = (2 * ctx.toShaderX(mouseX) - ctx.width) / minDimension;
+        stMouseY = (2 * ctx.toShaderY(mouseY) - ctx.height) / minDimension;
+        time = performance.now() / 1000;
+        const scrollY = window.scrollY;
+        const scrollYDelta = scrollY - oldScrollY;
+        if (scrollYDelta === 0) {
+          feedbackShiftVectorY = 0;
+        } else {
+          feedbackShiftVectorY =
+            scrollYDelta / minDimension
+            * 2 * ctx.cssPixelRatio
+            * backgroundParallaxScrollingFactor;
+          drawCenterY += feedbackShiftVectorY;
+        }
+        oldScrollY = scrollY;
+        if (tiltFBDelta) { // we have device orientation readings, better than mouse
+          feedbackShiftVectorX = tiltLR * feedbackTiltShiftFactor;
+          feedbackShiftVectorY += tiltFB * -feedbackTiltShiftFactor;
+        } else {
+          feedbackShiftVectorX = stMouseX * feedbackMouseShiftFactor;
+          feedbackShiftVectorY += stMouseY * feedbackMouseShiftFactor;
+        }
+        blobColor = spectral_zucconi6((time * blobColorPulseSpeed) % 1);
+      },
+      shaders: {
+        feedback: {
+          uniforms: {
+            iResolution:               (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
+            iMinDimension:             (gl, loc) => gl.uniform1f(loc, minDimension),
+            iScreenRatioHalf:          (gl, loc) => gl.uniform2f(loc, screenRatioHalfX, screenRatioHalfY),
+            iFeedbackZoomCenter:       (gl, loc) => gl.uniform2f(loc, 0, 0),
+            iFeedbackZoomRate:         (gl, loc) => gl.uniform1f(loc, .0004),
+            iFeedbackShiftVector:      (gl, loc) => gl.uniform2f(loc, feedbackShiftVectorX, feedbackShiftVectorY),
+            iFeedbackFadeRate:         (gl, loc) => gl.uniform1f(loc, .9998),
+            iFeedbackColorShiftZoom:   (gl, loc) => gl.uniform1f(loc, .07),
+            iFeedbackColorShiftImpact: (gl, loc) => gl.uniform1f(loc, .003),
+            iDrawCenter:               (gl, loc) => gl.uniform2f(loc, drawCenterX, drawCenterY),
+            iDrawIntensity:            (gl, loc) => gl.uniform1f(loc, .012),
+            iBlobRadius:               (gl, loc) => gl.uniform1f(loc, blobRadius),
+            iBlobSmoothingRadius:      (gl, loc) => gl.uniform1f(loc, blobSmoothingRadius),
+            iBlobPowFactor:            (gl, loc) => gl.uniform1f(loc, 14.),
+            iBlobColor:                (gl, loc) => gl.uniform3f(loc, blobColor[0], blobColor[1], blobColor[2]),
+            iTime:                     (gl, loc) => gl.uniform1f(loc, time),
+            iChannel0:                 (gl, loc, ctx) => ctx.texture(loc, ctx.buffers.feedback)
+          }
+        },
+        image: {
+          uniforms: {
+            iResolution:               (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
+            iMinDimension:             (gl, loc) => gl.uniform1f(loc, minDimension),
+            iTime:                     (gl, loc, ctx) => gl.uniform1f(loc, time),
+            iDrawCenter:               (gl, loc) => gl.uniform2f(loc, drawCenterX, drawCenterY),
+            iRotationSpeed:            (gl, loc, ctx) => gl.uniform1f(loc, -.01),
+            iEarthRadius:              (gl, loc, ctx) => gl.uniform1f(loc, earthRadius),
+            iEarthSmoothingRadius:     (gl, loc, ctx) => gl.uniform1f(loc, earthSmoothingRadius),
+            iBlueMarble:               (gl, loc, ctx) => ctx.texture(loc, ctx.iBlueMarble),
+            iChannel0:                 (gl, loc, ctx) => ctx.texture(loc, ctx.buffers.feedback)
+          }
+        }
+      },
+      onAfterFrame: () => {
+        drawCenterY *= drawCenterShiftDownScale;
+      },
+      onError: (error, canvas) => {
+        document.documentElement.classList.add("fallback-background");
+        if (error instanceof shaderWebBackground.GlError) {
+          console.log("Could not shade, adding fallback CSS classes:", error);
+          // in regular web design we would just silently switch to fallback style
+          window.alert(
+            "The shader-web-background does not support your device/browser, therefore "
+              + "you cannot experience what is described here, try with another device");
+        } else {
+          throw error;
+        }
+      }
+    });
+
+
+    //Based on toUnicodeVariant by David Konrad, MIT License
+    //https://github.com/davidkonrad/toUnicodeVariant
+
+    function toGothic(str) {
+
+      const variant = "gothic bold";
+
+      const offset1 = 0x1d56c
+      const offset2 = 0x00030
+
+      // special characters (absolute values)
+      var special = {
+        m: {
+          ' ': 0x2000,
+          '-': 0x2013
+        },
+        i: {
+          'h': 0x210e
+        },
+        g: {
+          'C': 0x212d,
+          'H': 0x210c,
+          'I': 0x2111,
+          'R': 0x211c,
+          'Z': 0x2128
+        },
+        o: {
+          '0': 0x24EA,
+          '1': 0x2460,
+          '2': 0x2461,
+          '3': 0x2462,
+          '4': 0x2463,
+          '5': 0x2464,
+          '6': 0x2465,
+          '7': 0x2466,
+          '8': 0x2467,
+          '9': 0x2468,
+        },
+        p: {},
+        w: {}
+      }
+      //support for parenthesized latin letters small cases
+      for (var i = 97; i <= 122; i++) {
+        special.p[String.fromCharCode(i)] = 0x249C + (i-97)
+      }
+      //support for full width latin letters small cases
+      for (var i = 97; i <= 122; i++) {
+        special.w[String.fromCharCode(i)] = 0xff41 + (i-97)
+      }
+
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      const numbers = '0123456789';
+
+      var type = "bg";
+      var result = '';
+
+      for (var k of str) {
+        let index
+        let c = k
+        if (special[type] && special[type][c]) c = String.fromCodePoint(special[type][c])
+        if (type && (index = chars.indexOf(c)) > -1) {
+          result += String.fromCodePoint(index + offset1)
+        } else if (type && (index = numbers.indexOf(c)) > -1) {
+          result += String.fromCodePoint(index + offset2)
+        } else {
+          result += c
+        }
+      }
+      return result
+    }
+
+    function appendAsGothic(selector, newElementType) {
+      const element = document.querySelector(selector);
+      const newElement = document.createElement(newElementType);
+      newElement.innerText = toGothic(element.innerText);
+      manuscript.appendChild(newElement);
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const manuscript = document.createElement("section");
+      manuscript.id = "manuscript";
+      document.body.appendChild(manuscript);
+      appendAsGothic("h1", "h1");
+      appendAsGothic("header > p", "p");
+      appendAsGothic("#image", "p");
+    });
+  </script>
+</head>
+<style>
+  html {
+    box-sizing: border-box;
+    background: black;
+    font-size: calc(16px + 2vw);
+    font-family: sans-serif;
+    scroll-behavior: smooth;
+    line-height: 2em;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  body {
+    color: black;
+  }
+  body, h1, h2, p, ul, blockquote {
+    margin: 0;
+    padding: 0;
+  }
+  header, section, footer {
+    padding-left:  calc(-20px + 10vw);
+    padding-right: calc(-20px + 10vw);
+  }
+  header {
+    height: 100vh;
+  }
+  header h1, header p {
+    display: none;
+  }
+  section {
+    text-shadow: 0 0 3px #FFFFFF, 0 0 5px #FFFFFF;
+  }
+  section h1 {
+    text-align: center;
+    font-weight: normal;
+  }
+</style>
+<body>
+  <header>
+    <h1>The Mystical Flat Earth</h1>
+    <p>
+      Here is the formula which sustains our planet as a flat disk floating in space
+    </p>
+  </header>
+</body>
+</html>
