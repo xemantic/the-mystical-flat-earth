@@ -388,12 +388,14 @@ this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,th
        mouseY = event.clientY;
     });
 
+    /*
     onWindowLoad()
       .then(() => Promise.all([
         loadScript("https://unpkg.com/screenfull/dist/screenfull.js"),
         loadScript("https://unpkg.com/nosleep.js/dist/NoSleep.min.js")
       ]))
       .then(maybeAddActions);
+    */
 
     shaderWebBackground.shade({
       onInit: (ctx) => {
@@ -582,7 +584,7 @@ this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,th
       function appendAsGothic(selector, newElementType) {
         const element = document.querySelector(selector);
         const newElement = document.createElement(newElementType);
-        newElement.innerText = toGothic(element.innerText);
+        newElement.innerHTML = toGothic(element.innerText);
         manuscript.appendChild(newElement);
       }
       appendAsGothic("h1", "h1");
