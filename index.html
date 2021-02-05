@@ -399,7 +399,7 @@ this.j);b.framebufferTexture2D(b.FRAMEBUFFER,b.COLOR_ATTACHMENT0,b.TEXTURE_2D,th
 
     shaderWebBackground.shade({
       onInit: (ctx) => {
-        loadImage("../media/nasa-blue-marble.jpg")
+        loadImage("../media/nasa-blue-marble-square.jpg")
           .then(image => {
             const gl = ctx.gl;
             const texture = gl.createTexture();
